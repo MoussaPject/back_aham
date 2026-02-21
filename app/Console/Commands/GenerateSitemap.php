@@ -32,18 +32,10 @@ class GenerateSitemap extends Command
     {
         $this->info('Generating sitemap...');
 
-        // URL dynamique selon l'environnement
-        $baseUrl = config('app.url');
+        // Forcer l'URL Railway pour la production
+        $baseUrl = 'https://backaham-production.up.railway.app';
         
-        // Forcer HTTPS et URL production Railway
-        if (app()->environment('production')) {
-            $baseUrl = 'https://backaham-production.up.railway.app';
-        }
-        
-        // S'assurer que le schéma est correct selon l'environnement
-        if (app()->environment('production')) {
-            $baseUrl = str_replace('http://', 'https://', $baseUrl);
-        }
+        $this->info("Using base URL: {$baseUrl}");
 
         $sitemap = Sitemap::create();
 
@@ -93,5 +85,6 @@ class GenerateSitemap extends Command
 
         $this->info('Sitemap generated successfully!');
         $this->info('URL: ' . $baseUrl . '/sitemap.xml');
+        $this->info('File saved to: ' . public_path('sitemap.xml'));
     }
 }

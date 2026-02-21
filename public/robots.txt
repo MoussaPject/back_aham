@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Priorité aux pages importantes
+Allow: /produits
+Allow: /categories
+Allow: /categorie/
+Allow: /produit/
+
+# Sitemap dynamique avec URL complète
+Sitemap: https://backaham-production.up.railway.app/sitemap.xml
+
+# Bloquer les pages d'administration
+Disallow: /admin/
+Disallow: /api/
+Disallow: /connexion
+Disallow: /inscription
+Disallow: /panier
+Disallow: /commandes
+
+# Autoriser les assets
+Allow: /assets/
+Allow: /images/
+Allow: /css/
+Allow: /js/
+
+# Crawl-delay pour éviter la surcharge
+Crawl-delay: 1
