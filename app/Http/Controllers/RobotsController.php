@@ -10,10 +10,11 @@ class RobotsController extends Controller
     public function index(Request $request)
     {
         // URL dynamique selon l'environnement
+        $baseUrl = config('app.url');
+        
+        // Forcer HTTPS et URL production Railway SEULEMENT en production
         if (App::environment('production')) {
             $baseUrl = 'https://backaham-production.up.railway.app';
-        } else {
-            $baseUrl = 'http://localhost:8000';
         }
 
         $sitemapUrl = $baseUrl . '/sitemap.xml';

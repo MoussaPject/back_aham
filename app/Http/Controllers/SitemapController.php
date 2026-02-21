@@ -13,14 +13,16 @@ class SitemapController extends Controller
     public function index(Request $request)
     {
         // URL dynamique selon l'environnement
-        // Forcer local pour les tests - à commenter en production
-        $env = app()->environment();
-        if ($env === 'production' && $request->getHost() === 'localhost') {
-            $baseUrl = 'http://localhost:8000';
-        } elseif (app()->environment('production')) {
+        $baseUrl = config('app.url');
+        
+        // Forcer HTTPS et URL production Railway SEULEMENT en production
+        if (app()->environment('production')) {
             $baseUrl = 'https://backaham-production.up.railway.app';
-        } else {
-            $baseUrl = 'http://localhost:8000';
+        }
+        
+        // S'assurer que le schéma est correct selon l'environnement
+        if (app()->environment('production')) {
+            $baseUrl = str_replace('http://', 'https://', $baseUrl);
         }
 
         $sitemap = Sitemap::create();
